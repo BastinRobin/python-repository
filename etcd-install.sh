@@ -10,9 +10,6 @@ curl -L -o /tmp/etcd.service https://github.com/ttsdzzg/python-repository/raw/ma
 
 tar xzvf /tmp/etcd-v3.2.11-linux-amd64.tar.gz -C /opt/etcd --strip-components=1
 
-alias etcdctl='ETCDCTL_API=3 /opt/etcd/etcdctl'
-alias etcdctl2='ETCDCTL_API=2 /opt/etcd/etcdctl'
-
 mv /tmp/etcd.service /etc/init.d/etcd
 chmod +x /etc/init.d/etcd
 
@@ -22,6 +19,13 @@ service etcd start
 
 /opt/etcd/etcd --version
 ETCDCTL_API=3 /opt/etcd/etcdctl version
+
+echo "# etcdctl alias" >> /tmp/tuotian_etcd.sh
+echo "alias etcdctl='ETCDCTL_API=3 /opt/etcd/etcdctl'" >> /tmp/tuotian_etcd.sh
+echo "alias etcdctl2='ETCDCTL_API=2 /opt/etcd/etcdctl'" >> /tmp/tuotian_etcd.sh
+mv /tmp/tuotian_etcd.sh /etc/profile.d/
+chown root:root /etc/profile.d/tuotian_etcd.sh
+chmod g-w /etc/profile.d/tuotian_etcd.sh
 
 echo "install success"
 

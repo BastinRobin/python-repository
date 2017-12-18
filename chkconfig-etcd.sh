@@ -14,16 +14,16 @@ datadir="/var/lib/etcd"
 case "$1" in
     start)\
         echo -n "Starting $progname: "
-	/opt/etcd/etcd --name $node \
+        /opt/etcd/etcd --name $node \
             --data-dir $datadir \
             --listen-client-urls http://${hostip}:2379,http://127.0.0.1:2379 \
             --advertise-client-urls http://${hostip}:2379 \
             --listen-peer-urls http://${hostip}:2380 \
             --initial-advertise-peer-urls http://${hostip}:2380 \
             --initial-cluster $node=http://${hostip}:2380 \
-	    --initial-cluster-token some-token \
-	    --initial-cluster-state new \
-	    >>/var/log/etcd.log 2>&1 &
+            --initial-cluster-token some-token \
+            --initial-cluster-state new \
+            >>/var/log/etcd.log 2>&1 &
         echo $! > $pidfile
         echo "OK"
     ;;
